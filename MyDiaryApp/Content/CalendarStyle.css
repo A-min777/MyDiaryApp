@@ -1,0 +1,160 @@
+﻿
+
+body {
+    background-color: #F5ECD5;
+    color: #3D3D3D;
+    font-size: 20px;
+}
+
+::selection {
+    background-color: #578E7E; 
+    color: white;
+}
+
+a {
+    padding: 20px;
+    width: 10vw;
+    color: #3D3D3D;
+    font-size: 2rem;
+}
+
+    a:hover {
+        text-decoration: none;
+        color: #578E7E;
+    }
+
+
+.btn {
+    background-color: #F5ECD5 !important;
+    color: #578E7E !important;
+    border: solid 1px #3D3D3D;
+    padding: 10px;
+}
+
+    .btn:hover {
+        background-color: #578E7E !important;
+        color: #FFFAEC !important;
+    }
+
+
+.toggleBtn {
+    min-width: 40px;
+    border: solid 1px #3D3D3D;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+.returnBtn {
+    min-width: 40px;
+    border: solid 1px #3D3D3D;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+/*===============月曆style===============*/
+.title {
+    font-weight: bolder;
+    color: #3D3D3D;
+    margin: 15px;
+}
+
+.week {
+    background-color: #578E7E;
+    color: #FFFAEC;
+}
+
+.weekend {
+    background-color: #C96868;
+    color: #FFFAEC;
+}
+
+.weekendDay {
+    color: #C96868;
+}
+
+    .weekendDay:hover {
+        color: #a83c3c;
+    }
+
+.current-month {
+    padding: 20px;
+    height: 10vh;
+    background-color: #FFFAEC;
+    text-align: center;
+    align-content: center;
+    /*border-right: solid 1px #FFFAEC;*/
+}
+
+.other-month {
+    padding: 20px;
+    height: 10vh;
+    background-color: #FFFAEC;
+    opacity: 50%;
+}
+/*===============月曆style===============*/
+
+/*===============日記頁style===============*/
+
+.textContent {
+    margin:0 0 20px  0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    justify-items: center;
+    background-color: #578E7E;
+    border-radius: 10px;
+}
+
+.deleteBtn {
+    background-color: #C96868 !important;
+    border:none;
+    color: white !important;
+}
+
+    .deleteBtn:hover {
+        background-color: #a83c3c !important;
+        color: white;
+    }
+
+.comfirmBtn {
+    background-color: #578E7E !important;
+    border: none;
+    color: #FFFAEC !important;
+}
+
+    .comfirmBtn:hover {
+        background-color: #3a5f54 !important;
+        color: #FFFAEC !important;
+    }
+
+label {
+    margin: 10px 0 0 0;
+    font-size: 2rem;
+    color: #F5ECD5;
+}
+
+textarea {
+    width: 100%;
+    max-width: 100% !important;
+    border: none;
+    outline: none;
+    background-color: #FFFAEC;
+    color: #3D3D3D;
+    font-weight: bolder;
+    align-content: center;
+}
+
+input {
+    width: 100%;
+    max-width: 100% !important;
+    text-align: end;
+    border: none;
+    outline: none;
+    background-color: #FFFAEC !important;
+    color: #3D3D3D !important;
+}
+/*===============日記頁style===============*/

@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewBag.Title = "GetDiary";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@**@
+
+<style>
+    .createBtn{
+        width:40px;
+        height:40px;
+        border-radius:50%;
+    }
+
+</style>
+
+<div>
+    <h2 class="title text-center">@Model.Date.ToString("yyyy 年 MM 月 dd 日")</h2>
+</div>
+
+
+<form method="post" action="@Url.Action("SaveDiary", "Diary")" class="form-inline text-center ">
+    <input type="hidden" name="date" value="@Model.Date.ToString("yyyy-MM-dd")" />
+
+    <div class="textContent ">
+        <label for="Content" class="labelTitle">- 今日記事 -</label>
+        <textarea type="text" id="Content" name="Content" rows="5" class="text-center">@Model.Content</textarea>
+    </div>
+
+    <table class=" table table-bordered transactionTable">
+        <thead class="week">
+            <tr>
+                <th>類型</th>
+                <th>金額</th>
+                <th>描述</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 已存在的收支紀錄 -->
+            @for (int i = 0; i < Model.Transactions.Count; i++)
+            {
+                var transaction = Model.Transactions[i];
+                <tr>
+                    <td>
+                        <select name="Transactions[@i].Type" class="form-control type">
+                            <option value="收入" @(transaction.Type == "收入" ? "selected" : "")>收入</option>
+                            <option value="支出" @(transaction.Type == "支出" ? "selected" : "")>支出</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" step="0.01" name="Transactions[@i].Amount" value="@transaction.Amount" class="form-control amount" />
+                    </td>
+                    <td>
+                        <input type="text" name="Transactions[@i].Description" value="@transaction.Description" class="form-control desc" />
+                    </td>
+                    <td>
+                        <button name="DeleteTransactionIndex" value="@i" class="btn deleteBtn">刪除</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- 新增一筆收支紀錄 -->
+    <button class="btn createBtn">+</button>
+
+    <div class="text-right">
+        <button class="btn comfirmBtn">儲存</button>
+    </div>
+
+
+    @*<div class="financialContent">
+            <div class="textContent ">
+                <label for="Income" class="labelTitle">- 收入 -</label>
+                <input type="number" id="Income" name="Income" value="@Model.Income" />
+            </div>
+            <div class="textContent expenses">
+                <label for="Expenses" class="labelTitle">- 支出 -</label>
+                <input type="number" id="Expenses" name="Expenses" value="@Model.Expenses" />
+            </div>
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn saveBtn">保存</button>
+
+        </div>*@
+
+</form>
+
+
+
+@section scripts{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            document.querySelector("#prevPage").addEventListener("click", () => {
+                var targetUrl = '@Url.Action("GetCalendar", "Diary")';
+                window.location.href = targetUrl;
+            });
+
+            const transactionTable = document.querySelector(".transactionTable");
+            const createBtn = document.querySelector(".createBtn");
+            const comfirmBtn = document.querySelector(".comfirmBtn");
+
+            createBtn.addEventListener("click", () => {
+                const newTs = document.createElement("tr");
+                newTs.innerHTML = `<td>
+                        <select class="form-control">
+                            <option value="收入">收入</option>
+                            <option value="支出">支出</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" step="0.01" value="0" class="form-control" />
+                    </td>
+                    <td>
+                        <input type="text" value="" class="form-control" />
+                    </td>
+                    <td>
+                        <button class="btn deleteBtn">刪除</button>
+                    </td>`;
+                transactionTable.querySelector("tbody").appendChild(newTs);
+
+                bindDeleteEvent(newTs.querySelector(".deleteBtn"))
+            })
+
+            function bindDeleteEvent(button) {
+                button.addEventListener("click", () => {
+                    button.closest("tr").remove();
+                })
+            }
+
+            document.querySelectorAll(".deleteBtn").forEach(bindDeleteEvent);
+
+            comfirmBtn.addEventListener("click", () => {
+                const diaryContent = document.querySelector("#Content");
+                const transations = Array.from(transactionTable.querySelectorAll("tbody tr")).map(row => ({
+                    Type: row.querySelector(".type").Value,
+                    Amount: row.querySelector(".amount").Value,
+                    DescrDescription: row.querySelector(".desc").Value
+                }));
+
+                fetch("Diary/SaveDiary", {
+                    method: "post",
+                    headers: { "ContentType": "application/Json" },
+                    body: JSON.stringify({
+                        Date: "@Model.Date.ToString("yyyy-MM-dd")",
+                        Content: diaryContent,
+                        Transactions: transations,
+                    }),
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("日記更新完成!");
+                            location.reload;
+                        }
+                        else {
+                            console.error("日記更新失敗")
+                        }
+                    })
+                    .catch(error => console.error("更新日記發生錯誤", error));
+            });
+        });
+    </script>
+}

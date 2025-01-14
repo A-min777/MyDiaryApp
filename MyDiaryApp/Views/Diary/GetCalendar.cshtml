@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "GetCalendar";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<div id="calendarContainer">
+    @Html.Partial("_CalendarPartial")
+</div>
+
+
+@section scripts{
+    <script>
+        //切換月份功能
+        document.addEventListener("DOMContentLoaded", function () {
+            let currentYear = @Model.Year;
+            let currentMonth = @Model.Month;
+            console.log("currentYear", currentYear)
+            console.log("currentMonth", currentMonth)
+
+            const updateCalendar = (year, month) => {
+                fetch(`GetPartialCalendar\?year=${year}&month=${month}`)
+                    .then(reponse => reponse.text())
+                    .then(html => {
+                        document.querySelector("#calendarContainer").innerHTML = html;
+                        attachEventHandlers();
+                    })
+                    .catch(error => console.error("月曆加載失敗", error));
+            }
+
+            const attachEventHandlers = () => {
+                document.querySelector(".prevMonth").addEventListener("click", () => {
+                    currentMonth--;
+                    if (currentMonth < 1) {
+                        currentMonth = 12;
+                        currentYear--;
+                    }
+                    updateCalendar(currentYear, currentMonth);
+                    console.log("prevMonth clicked")
+                });
+                document.querySelector(".nextMonth").addEventListener("click", () => {
+                    currentMonth++;
+                    if (currentMonth >12) {
+                        currentMonth = 1;
+                        currentYear++;
+                    }
+                    updateCalendar(currentYear, currentMonth);
+                });
+            }
+            attachEventHandlers();
+        });
+
+
+    </script>
+}

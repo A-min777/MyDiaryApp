@@ -1,0 +1,165 @@
+﻿
+body {
+    background-color: #3D3D3D;
+    color: #F5ECD5;
+    font-size: 20px;
+}
+
+::selection {
+    background-color: #578E7E;
+    color: white;
+}
+
+a {
+    padding: 20px;
+    width: 10vw;
+    color: #F5ECD5;
+    font-size: 2rem;
+}
+
+    a:hover {
+        text-decoration: none;
+        color: #F5ECD5;
+    }
+
+
+.btn {
+    background-color: #3D3D3D !important;
+    color: #F5ECD5 !important;
+    border: solid 1px #F5ECD5;
+    padding: 10px;
+}
+
+    .btn:hover {
+        background-color: #578E7E !important;
+        color: #F5ECD5 !important;
+    }
+
+
+.toggleBtn {
+    min-width: 40px;
+    border: solid 1px #F5ECD5;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+.returnBtn {
+    min-width: 40px;
+    border: solid 1px #F5ECD5;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+/*===============月曆style===============*/
+.title {
+    font-weight: bolder;
+    color: #F5ECD5;
+    margin: 15px;
+}
+
+.week {
+    background-color: #578E7E;
+    color: #F5ECD5;
+}
+
+.weekend {
+    background-color: #C96868;
+    color: #F5ECD5;
+}
+
+.weekendDay {
+    color: #C96868;
+}
+
+    .weekendDay:hover {
+        color: #F5ECD5;
+    }
+
+.current-month {
+    padding: 20px;
+    height: 10vh;
+    background-color: #3D3D3D;
+    text-align: center;
+    align-content: center;
+}
+
+    .current-month:hover {
+        background-color: #578E7E;
+    }
+
+.weekendTd:hover {
+    background-color: #C96868;
+    color: #F5ECD5;
+}
+
+.other-month {
+    padding: 20px;
+    height: 10vh;
+}
+/*===============月曆style===============*/
+
+/*===============日記頁style===============*/
+
+.textContent {
+    margin: 0 0 20px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    justify-items: center;
+    background-color: #578E7E;
+    border: solid 1px #578E7E;
+    border-radius: 10px;
+}
+
+.deleteBtn {
+    background-color: #C96868 !important;
+    color: white !important;
+}
+
+    .deleteBtn:hover {
+        background-color: #a83c3c !important;
+        color: white;
+    }
+
+.comfirmBtn {
+    background-color: #578E7E !important;
+    color: #FFFAEC !important;
+}
+
+    .comfirmBtn:hover {
+        background-color: #3a5f54 !important;
+        color: #FFFAEC !important;
+    }
+
+
+label {
+    margin: 10px 0 0 0;
+    font-size: 2rem;
+    color: #F5ECD5;
+}
+
+textarea {
+    width: 100%;
+    max-width: 100% !important;
+    border: solid 1px #F5ECD5;
+    outline: none;
+    background-color: #3D3D3D;
+    color: #F5ECD5;
+    font-weight: bolder;
+    align-content: center;
+}
+
+input {
+   
+    max-width: 100% !important;
+    text-align: end;
+    border: solid 1px #F5ECD5;
+    outline: none;
+    background-color: #3D3D3D !important;
+    color: #F5ECD5 !important;
+}
+/*===============日記頁style===============*/

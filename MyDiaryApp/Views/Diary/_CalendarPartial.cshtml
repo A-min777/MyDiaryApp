@@ -1,0 +1,62 @@
+﻿
+<h1 class="title text-center ">
+    <button class="prevMonth btn">◄</button>
+    @Model.Year 年 @Model.Month 月
+    <button class="nextMonth btn ">►</button>
+</h1>
+
+<form method="get" action="@Url.Action("GetCalendar", "Diary")" class="form-inline text-center ">
+    <select name="year" class="form-control mx-1">
+        @for (int y = Model.Year - 5; y <= Model.Year + 5; y++)
+        {
+            <option value="@y" @(y == Model.Year ? "selected" : "")>@y 年</option>
+        }
+    </select>
+    <select name="month" class="form-control mx-1">
+        @for (int m = 1; m <= 12; m++)
+        {
+            <option value="@m" @(m == Model.Month ? "selected" : "")>@m 月</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-primary">切換</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr class="week">
+            <th class="weekend text-center">日</th>
+            <th class="text-center">一</th>
+            <th class="text-center">二</th>
+            <th class="text-center">三</th>
+            <th class="text-center">四</th>
+            <th class="text-center">五</th>
+            <th class="weekend text-center">六</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.CalendarDays.Count; i++)
+        {
+            if (i % 7 == 0)
+            {@:<tr></tr>
+            }
+            var day = Model.CalendarDays[i];
+
+            if (day?.Date != null)
+            {
+                var isWeekend = day?.Date.DayOfWeek == DayOfWeek.Sunday || day?.Date.DayOfWeek == DayOfWeek.Saturday;
+            <td class="current-month @(day?.IsCurrentMonth == true ? "current-month" : "other-month") @(isWeekend ? "weekendTd" : "")">
+                <a href="@Url.Action("GetDiary", "Diary", new { date = day.Date.ToString("yyyy-MM-dd") })" class="@(isWeekend ? "weekendDay" : "")">
+                    @day.Date.Day
+                </a>
+            </td>
+        }
+        else
+        {
+            <td>
+                <span></span>
+            </td>
+        }
+
+    }
+        </tbody>
+    </table>

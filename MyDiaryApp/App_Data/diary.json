@@ -1,0 +1,34 @@
+[
+  {
+    "Date": "2025-01-01",
+    "Content": "元旦假期，出去旅行。",
+    "Transactions": [
+      {
+        "Type": "支出",
+        "Amount": 500,
+        "Description": "旅行費用"
+      },
+      {
+        "Type": "收入",
+        "Amount": 0,
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Date": "2025-01-02",
+    "Content": "回到家休息。",
+    "Transactions": [
+      {
+        "Type": "支出",
+        "Amount": 100,
+        "Description": "雜貨採買"
+      },
+      {
+        "Type": "收入",
+        "Amount": 50,
+        "Description": "賣二手書"
+      }
+    ]
+  }
+]

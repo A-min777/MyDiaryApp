@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link id="lightMode" rel="stylesheet" href="~/Content/CalendarStyle.css">
+    <link id="darkMode" rel="stylesheet" href="~/Content/CalendarStyle_dk.css" disabled >
+
+    <style>
+        body {
+            transition: background-color 0.3s ease;
+        }
+        .navbar{
+            height:50px;
+        }
+    </style>
+</head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<body>
+    <div class="navbar  navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header ">
+                <button id="prevPage" class="btn returnBtn">
+                    <
+                </button>
+                <button id="toggleColorMode" class="btn toggleBtn">
+                    ☼
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <footer>
+            <p>&copy; MyDairy</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<script>
+    //切換顏色模式
+    document.querySelector("#toggleColorMode").addEventListener("click", () => {
+        let toggleBtn = document.querySelector("#toggleColorMode");
+        let lightModeStyle = document.querySelector("#lightMode");
+        let darkModeStyle = document.querySelector("#darkMode");
+        let colorMode = localStorage.getItem("colorMode");
+
+        console.log("colorMode", colorMode)
+
+        if (lightModeStyle.disabled === false) {
+            lightModeStyle.disabled = true;
+            darkModeStyle.disabled = false;
+            toggleBtn.innerHTML = "☾";
+
+            localStorage.setItem("colorMode", "light");
+        }
+        else {
+            lightModeStyle.disabled = false;
+            darkModeStyle.disabled = true;
+            toggleBtn.innerHTML = "☼";
+
+            localStorage.setItem("colorMode", "dark");
+        }
+    })
+
+    window.addEventListener("load", () => {
+        let colorMode = localStorage.getItem("colorMode");
+        let lightModeStyle = document.querySelector("#lightMode");
+        let darkModeStyle = document.querySelector("#darkMode");
+        let toggleBtn = document.querySelector("#toggleColorMode");
+
+        if (colorMode != "dark") {
+            lightModeStyle.disabled = true;
+            darkModeStyle.disabled = false;
+            toggleBtn.innerHTML = "☾";
+
+        } else {
+            darkModeStyle.disabled = true;
+            lightModeStyle.disabled = false;
+            toggleBtn.innerHTML = "☼";
+        }
+    });
+</script>
+
