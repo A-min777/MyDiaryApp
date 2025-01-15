@@ -3,6 +3,7 @@ using MyDiaryApp.Models.Vms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace MyDiaryApp.Controllers
@@ -88,18 +89,29 @@ namespace MyDiaryApp.Controllers
             return View(diaryEntry);
         }
 
-        //public ActionResult SaveDiary(DiaryEntry diaryEntry,Transaction newTransaction,int? DeleteTransactionIndex)
-        //{
-        //    var entries = LoadDiaryEntries();
-        //    var existedEntry = entries.FirstOrDefault(e => e.Date.Date == diaryEntry.Date.Date);
+        [System.Web.Mvc.HttpPost]
+        public ActionResult SaveDiary([System.Web.Http.FromBody] DiaryEntry diaryEntry)
+        {
+            if (diaryEntry == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "無效的請求");
+            }
 
-        //    if(existedEntry != null)//如果已存在內容就更新
-        //    {
-        //        existedEntry.Content = diaryEntry.Content;
+            var entries = LoadDiaryEntries();
+            var existedEntry = entries.FirstOrDefault(e => e.Date.Date == diaryEntry.Date.Date);
 
-        //        if(DeleteTransactionIndex.HasValue&&existedEntry.Transactions)
-        //    }
-        //}
+            if (existedEntry != null)//如果已存在內容就更新
+            {
+                existedEntry.Content = diaryEntry.Content;
+                existedEntry.Transactions = diaryEntry.Transactions;
+            }
+            else
+            {
+                entries.Add(diaryEntry);
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
 
 
         private string DiaryFilePath => Server.MapPath("~/App_Data/diary.json");

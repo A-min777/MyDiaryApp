@@ -7,12 +7,41 @@
 @**@
 
 <style>
-    .createBtn{
-        width:40px;
-        height:40px;
-        border-radius:50%;
+    .createBtn {
+        font-size:1.5rem;
+        font-weight:bolder;
+        height: 40px;
+    }
+    .comfirmBtn{
+        position:fixed;
+        width:60px !important;
+        right:40px;
+        bottom:40px;
+    }
+    .transactionTable {
+        opacity: 0;
+        visibility: hidden;
     }
 
+    .transactionTable.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    input,textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    }
+
+        input:focus, textarea:focus {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-color: #578E7E;
+        }
 </style>
 
 <div>
@@ -28,7 +57,7 @@
         <textarea type="text" id="Content" name="Content" rows="5" class="text-center">@Model.Content</textarea>
     </div>
 
-    <table class=" table table-bordered transactionTable">
+    <table class=" table table-bordered transactionTable visible">
         <thead class="week">
             <tr>
                 <th>類型</th>
@@ -63,30 +92,17 @@
         </tbody>
     </table>
 
-    <!-- 新增一筆收支紀錄 -->
-    <button class="btn createBtn">+</button>
-
-    <div class="text-right">
-        <button class="btn comfirmBtn">儲存</button>
-    </div>
-
-
-    @*<div class="financialContent">
-            <div class="textContent ">
-                <label for="Income" class="labelTitle">- 收入 -</label>
-                <input type="number" id="Income" name="Income" value="@Model.Income" />
-            </div>
-            <div class="textContent expenses">
-                <label for="Expenses" class="labelTitle">- 支出 -</label>
-                <input type="number" id="Expenses" name="Expenses" value="@Model.Expenses" />
-            </div>
-        </div>
-        <div class="text-right">
-            <button type="submit" class="btn saveBtn">保存</button>
-
-        </div>*@
-
 </form>
+
+<div class="text-center">
+    <!-- 新增一筆收支紀錄 -->
+    <button class="btn createBtn ">- 新增紀錄 -</button>
+</div>
+
+
+<div class="text-right">
+    <button class="btn comfirmBtn">儲存</button>
+</div>
 
 
 
@@ -122,14 +138,31 @@
                     </td>`;
                 transactionTable.querySelector("tbody").appendChild(newTs);
 
+                newTs.classList.add("fade-in")
+
                 bindDeleteEvent(newTs.querySelector(".deleteBtn"))
+
+                checkTsTable();
             })
 
             function bindDeleteEvent(button) {
                 button.addEventListener("click", () => {
                     button.closest("tr").remove();
+                    checkTsTable();
                 })
             }
+
+            function checkTsTable() {
+                const row = document.querySelectorAll("tbody tr");
+                if (row.length === 0) {
+                    transactionTable.classList.remove("visible")
+                }
+                else {
+                    transactionTable.classList.add("visible")
+                }
+            }
+
+            checkTsTable();
 
             document.querySelectorAll(".deleteBtn").forEach(bindDeleteEvent);
 

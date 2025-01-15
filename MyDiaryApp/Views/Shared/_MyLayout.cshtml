@@ -8,15 +8,17 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <link href="~/Content/animation.css" rel="stylesheet" />
     <link id="lightMode" rel="stylesheet" href="~/Content/CalendarStyle.css">
-    <link id="darkMode" rel="stylesheet" href="~/Content/CalendarStyle_dk.css" disabled >
+    <link id="darkMode" rel="stylesheet" href="~/Content/CalendarStyle_dk.css" disabled>
 
     <style>
         body {
             transition: background-color 0.3s ease;
         }
-        .navbar{
-            height:50px;
+
+        .navbar {
+            height: 50px;
         }
     </style>
 </head>
@@ -38,10 +40,7 @@
     </div>
 
     <div class="container body-content">
-        @RenderBody()
-        <footer>
-            <p>&copy; MyDairy</p>
-        </footer>
+        @RenderBody()       
     </div>
 
     @Scripts.Render("~/bundles/jquery")
