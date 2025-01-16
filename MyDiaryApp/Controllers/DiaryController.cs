@@ -90,7 +90,7 @@ namespace MyDiaryApp.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult SaveDiary([System.Web.Http.FromBody] DiaryEntry diaryEntry)
+        public ActionResult SaveDiary(DiaryEntry diaryEntry)
         {
             if (diaryEntry == null)
             {
@@ -110,6 +110,7 @@ namespace MyDiaryApp.Controllers
                 entries.Add(diaryEntry);
             }
 
+            SaveDiaryEntry(entries);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 

@@ -13,7 +13,7 @@ namespace MyDiaryApp.Models
     public class Transaction
     {
         public string Type { get; set; }    // 類型: 收入或支出
-        public decimal Amount { get; set; } // 金額
+        public int Amount { get; set; } // 金額
         public string Description { get; set; } // 描述
     }
 }
